@@ -25,14 +25,14 @@ http://developers.yumpu.com/api/getting-started/
 Impressum
 =========
 
-[i]-magazine AG
+[i]-magazine AG<br>
 Web-based, self-service (SaaS) marketing & magazine software
 
-E-Mail: info@i-magazine.de
+E-Mail: info@i-magazine.de<br>
 Tel: +49 (0)89 41 61 70 20
 
-Moosackerstraße 17
-9444 Diepoldsau, SG – Schweiz
-Firmenbuch-Nr: CH-320.1.081.510
+Moosackerstraße 17<br>
+9444 Diepoldsau, SG – Schweiz<br>
+Firmenbuch-Nr: CH-320.1.081.510<br>
 Mwst. Nummer: CHE-113.772.377
 
