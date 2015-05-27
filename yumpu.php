@@ -98,7 +98,7 @@ class Yumpu {
 
     /** 
      * get document details
-     * more details on: http://developers.yumpu.com/api/document/get-2/
+     * more details on: http://developers.yumpu.com/api/document/get/
 	 * 
      * @param array $data
      * @return array|json
@@ -319,7 +319,7 @@ class Yumpu {
 		
         return $this->executeRequest($params);
 	}
-	
+
 	
 /* SECTION */ 
 	
@@ -501,7 +501,466 @@ class Yumpu {
         return $this->executeRequest($params);
 	}
 
-	/** 
+    /**
+     * retrieve all users' medias datas
+     * more details on: http://developers.yumpu.com/api/medias/get/
+     *
+     * @param array $data
+     *
+     * @return array|json
+     */
+    public function getMedias($data = array()){
+        $params = array(
+            'action' => 'medias/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * retrived all datas for the Media with id $id
+     * more details on: http://developers.yumpu.com/api/media/get/
+     *
+     * @param array $data
+     *
+     * @return array|json
+     */
+    public function getMedia($data){
+        $params = array(
+            'action' => 'media/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * update a Media
+     * An example of an update array is $data = array('id' => 'mediaId', 'name' => 'myNewMediaName');
+     * more details on : http://developers.yumpu.com/api/media/put/
+     *
+     * @param array $data - array with update Media info; id is required;
+     *
+     * @return array|json
+     */
+    public function putMedia($data){
+        $params = array(
+            'action' => 'media/put',
+            'method' => 'POST',
+            'customRequest' => 'PUT',
+            'data' => $data
+        );
+         return $this->executeRequest($params);
+    }
+
+    /**
+     * delete the media with id value $id
+     * more details on: http://developers.yumpu.com/api/media/delete/
+     *
+     * @param string $id
+     * @return array|json
+     */
+    public function deleteMedia($id){
+        $params = array(
+            'action' => 'media/delete',
+            'data' => array(
+                'id' => $id,
+            ),
+            'method' => 'POST',
+            'customRequest' => 'DELETE'
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+
+    /**
+     * create a new Media
+     * more details on : http://developers.yumpu.com/api/media/post/
+     *
+     * @param array $data - array with create Media info; file is required;
+     *
+     * @return array|json
+     */
+    public function postMedia($data) {
+
+        $params = array(
+            'action' => 'media/post',
+            'method' => 'POST',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * retrived all datas for the Access-Tag with id $id
+     * more details on: http://developers.yumpu.com/api/access-tags/get/
+     *
+     * @param array $data
+     *
+     * @return array|json
+     */
+    public function getAccessTag($data){
+        $params = array(
+            'action' => 'accessTag/get',
+            'data' => $data
+        );
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * create a new access-tag
+     * An example of an update array is $data = array('name' => 'my-accesstag');
+     * more details on : http://developers.yumpu.com/api/access-tag/post/
+     *
+     * @param array $data - array with create collection info; name & description are required;
+     *
+     * @return array|json
+     */
+
+    public function postAccessTag($data){
+        $params = array(
+            'action' => 'accessTag/post',
+            'method' => 'POST',
+            'data' => $data
+        );
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * update a access-tag
+     * An example of an update array is $data = array('id' => 'collectionId', 'name' => 'mynewAccesTagName');
+     * more details on : http://developers.yumpu.com/api/access-tag/put/
+     *
+     * @param array $data - array with update collection info; id & name are required;
+     *
+     * @return array|json
+     */
+    public function putAccessTag($data){
+        $params = array(
+            'action' => 'accessTag/put',
+            'method' => 'POST',
+            'customRequest' => 'PUT',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * delete the access-tag with id value $id
+     * more details on: http://developers.yumpu.com/api/access-tag/delete/
+     *
+     * @param string $id
+     * @return array|json
+     */
+    public function deleteAccessTag($id){
+        $params = array(
+            'action' => 'accessTag/delete',
+            'data' => array(
+                'id' => $id,
+            ),
+            'method' => 'POST',
+            'customRequest' => 'DELETE'
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * retrieve all users' members datas
+     * more details on: http://developers.yumpu.com/api/members/get/
+     *
+     * @param array $data
+     *
+     * @return array|json
+     */
+    public function getMembers($data = array()){
+        $params = array(
+            'action' => 'members/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * get member details
+     * more details on: http://developers.yumpu.com/api/member/get/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function getMember($data) {
+        $params = array(
+            'action' => 'member/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * put member
+     * more details on: http://developers.yumpu.com/api/member/post/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function postMember($data) {
+        $params = array(
+            'action' => 'member/post',
+            'method' => 'POST',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * put member
+     * more details on: http://developers.yumpu.com/api/member/put/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function putMember($data) {
+        $params = array(
+            'action' => 'member/put',
+            'method' => 'POST',
+            'customRequest' => 'PUT',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * delete member
+     * more details on: http://developers.yumpu.com/api/member/delete/
+     *
+     * @param string $id
+     * @return array|json
+     */
+    public function deleteMember($id) {
+        $params = array(
+            'action' => 'member/delete',
+            'data' => array(
+                'id' => $id,
+            ),
+            'method' => 'POST',
+            'customRequest' => 'DELETE'
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * retrieve all users' accessTags datas
+     * more details on: http://developers.yumpu.com/api/access-tags/get/
+     *
+     * @param array $data
+     *
+     * @return array|json
+     */
+    public function getAccessTags($data = array()){
+        $params = array(
+            'action' => 'accessTags/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * retrieve all users' subscriptions datas
+     * more details on: http://developers.yumpu.com/api/subscriptions/get/
+     *
+     * @param array $data
+     *
+     * @return array|json
+     */
+    public function getSubscriptions($data = array()){
+        $params = array(
+            'action' => 'subscriptions/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * get subscription details
+     * more details on: http://developers.yumpu.com/api/subscription/get/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function getSubscription($data) {
+        $params = array(
+            'action' => 'subscription/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * post subscription
+     * more details on: http://developers.yumpu.com/api/subscription/post/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function postSubscription($data) {
+        $params = array(
+            'action' => 'subscription/post',
+            'method' => 'POST',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * put subscription
+     * more details on: http://developers.yumpu.com/api/subscription/put/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function putSubscription($data) {
+        $params = array(
+            'action' => 'subscription/put',
+            'method' => 'POST',
+            'customRequest' => 'PUT',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * put subscription
+     * more details on: http://developers.yumpu.com/api/subscription/delete/
+     *
+     * @param string $id
+     * @return array|json
+     */
+    public function deleteSubscription($id) {
+        $params = array(
+            'action' => 'subscription/delete',
+            'data' => array(
+                'id' => $id,
+            ),
+            'method' => 'POST',
+            'customRequest' => 'DELETE'
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * retrieve all users' embeds datas
+     * more details on: http://developers.yumpu.com/api/embeds/get/
+     *
+     * @param array $data
+     *
+     * @return array|json
+     */
+    public function getEmbeds($data = array()){
+        $params = array(
+            'action' => 'embeds/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * get embed details
+     * more details on: http://developers.yumpu.com/api/embed/get/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function getEmbed($data) {
+        $params = array(
+            'action' => 'embed/get',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * post embed
+     * more details on: http://developers.yumpu.com/api/embed/post/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function postEmbed($data) {
+        $params = array(
+            'action' => 'embed/post',
+            'method' => 'POST',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * put embed
+     * more details on: http://developers.yumpu.com/api/embed/put/
+     *
+     * @param array $data
+     * @return array|json
+     */
+    public function putEmbed($data) {
+        $params = array(
+            'action' => 'embed/put',
+            'method' => 'POST',
+            'customRequest' => 'PUT',
+            'data' => $data
+        );
+
+        return $this->executeRequest($params);
+    }
+
+
+    /**
+     * delete embed
+     * more details on: http://developers.yumpu.com/api/embed/delete/
+     *
+     * @param string $id
+     * @return array|json
+     */
+    public function deleteEmbed($id) {
+        $params = array(
+            'action' => 'embed/delete',
+            'data' => array(
+                'id' => $id,
+            ),
+            'method' => 'POST',
+            'customRequest' => 'DELETE'
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
      * execute a CURL request to Yumpu
      * 
      * @param array $params. Required keys: token, method
