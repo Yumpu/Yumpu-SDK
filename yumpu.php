@@ -202,6 +202,59 @@ class Yumpu {
 
         return $this->executeRequest($params);
     }
+
+
+    /**
+     * Create a new document hotspot
+     *
+     * @param $data
+     * @return array|json
+     */
+    public function postDocumentHotspot($data) {
+        $params = array(
+            'action' => 'document/hotspot/post',
+            'data' => $data,
+            'method' => 'POST'
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * update an existing document hotspot
+     *
+     * @param $data
+     * @return array|json
+     */
+    public function putDocumentHotspot($data) {
+        $params = array(
+            'action' => 'document/hotspot/put',
+            'data' => $data,
+            'method' => 'POST',
+            'customRequest' => 'PUT'
+        );
+
+        return $this->executeRequest($params);
+    }
+
+    /**
+     * delete an existing document hotspot
+     *
+     * @param $id
+     * @return array|json
+     */
+    public function deleteDocumentHotspot($id){
+        $params = array(
+            'action' => 'document/hotspot/delete',
+            'data' => array(
+                'id' => $id,
+            ),
+            'method' => 'POST',
+            'customRequest' => 'DELETE'
+        );
+
+        return $this->executeRequest($params);
+    }
 	
 	/* USERS */    
     /** 
