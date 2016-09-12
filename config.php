@@ -13,10 +13,10 @@
  */
 
 $config = array(
-    'token' => '',
+    'token' => 'yourToken',
 	'returnFormat' => 'array',
-	'endpointDomain' => 'http://api.yumpu.com/2.0/',
-	'endpointSearchDomain' => 'http://search.yumpu.com/2.0/',
+	'endpointDomain' => 'https://api.yumpu.com/2.0/',
+	'endpointSearchDomain' => 'https://search.yumpu.com/2.0/',
 	'debug' => FALSE,
 	'useCurl' => TRUE,
 	'logFilePath' => 'yumpu_log.txt',
@@ -34,6 +34,8 @@ $config['yumpuEndpoints'] = array(
 	'documents/get' => $config['endpointDomain'].'documents.json',
 	'document/delete' => $config['endpointDomain'].'document.json',
 	'document/put' => $config['endpointDomain'].'document.json',
+	'document/hotspots/get' => $config['endpointDomain'].'document/hotspots.json',
+	'document/hotspot/get' => $config['endpointDomain'].'document/hotspot.json',
 	'collection/get' => $config['endpointDomain'].'collection.json',
 	'collection/post' => $config['endpointDomain'].'collection.json',
 	'collection/put' => $config['endpointDomain'].'collection.json',

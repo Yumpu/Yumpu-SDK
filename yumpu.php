@@ -167,6 +167,41 @@ class Yumpu {
 		
         return $this->executeRequest($params);
 	}
+
+
+    /**
+     *
+     * Retrieve all hotspots from one document
+     *
+     * @param $data
+     * @return array|json
+     */
+    public function getDocumentHotspots($data){
+        $params = array(
+            'action' => 'document/hotspots/get',
+            'data' => $data,
+            'method' => 'GET'
+        );
+
+	    return $this->executeRequest($params);
+    }
+
+    /**
+     *
+     * Retrieve one hotspot
+     *
+     * @param $data
+     * @return array|json
+     */
+    public function getDocumentHotspot($data){
+        $params = array(
+            'action' => 'document/hotspot/get',
+            'data' => $data,
+            'method' => 'GET'
+        );
+
+        return $this->executeRequest($params);
+    }
 	
 	/* USERS */    
     /** 
