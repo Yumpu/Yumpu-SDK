@@ -1082,7 +1082,11 @@ class Yumpu {
 				}
 			}
 			if (isset($params['data']['page_teaser_image'])){
-				$params['data']['page_teaser_image'] = '@'.$params['data']['page_teaser_image'];	
+			    if (version_compare(PHP_VERSION, '5.5.0') >= 0){
+                    $params['data']['page_teaser_image'] = new CurlFile($params['data']['page_teaser_image']);
+                } else {
+                    $params['data']['page_teaser_image'] = '@'.$params['data']['page_teaser_image'];
+                }
 			}
 		}
 		

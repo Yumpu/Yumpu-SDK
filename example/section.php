@@ -11,8 +11,8 @@ $yumpu = new Yumpu();
 $data = array(
 	'id'=>'JEy5UQXbKJOVmfif_V2xvUpIjCVeLqMbl',
 );
-$listCollection = $yumpu->getSection($data);
-print_r($listCollection);
+$section = $yumpu->getSection($data);
+print_r($section);
 
 
 // post/create a new section 
@@ -21,8 +21,8 @@ $data = array(
 	'id'=>'JEy5UQXbKJOVmfif', // one of your collections id
 	'name' => 'new section',
 );
-$newCollection = $yumpu->postSection($data);
-print_r($newCollection);
+$newSection = $yumpu->postSection($data);
+print_r($newSection);
 
 // put/update an existing section 
 // more details on : http://developers.yumpu.com/api/section/put-3/
@@ -32,14 +32,14 @@ $data = array(
 	'name' => 'new section put',
 	'description' => ''
 );
-$putCollection = $yumpu->putSection($data);
-print_r($putCollection);
+$putSection = $yumpu->putSection($data);
+print_r($putSection);
 
 // delete an existing section 
 // more details on : http://developers.yumpu.com/api/section/delete-3/
 // PLEASE USE ONE OF YOUR SECTIONS IDS!!!
 $id = 'JEy5UQXbKJOVmfif_ZOvQeWYhu901LS2q';
-$deleteCollection = $yumpu->deleteSection($id);
-print_r($deleteCollection);
+$deleteSection = $yumpu->deleteSection($id);
+print_r($deleteSection);
 
 ?>
