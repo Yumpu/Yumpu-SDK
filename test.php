@@ -12,6 +12,8 @@ $testInputPut = $testInput . 'put';
 $successCount = 0;
 $errorCount = 0;
 
+echo "<pre>";
+
 // Test for the getCountries function
 $getCountries = $yumpu->getCountries();
 if (check($getCountries[state], 'getCountries')) ;
@@ -183,6 +185,17 @@ function whenDocumentBuilt($documentIdUrl)
         $collectionId = $postCollection[collection][0][id];
         whenCollectionBuilt($collectionId, $documentIdUrl);
     }
+
+    // Test for the postEmbed function
+    $params = array(
+        'document_id' => $documentIdUrl,
+        'type' => 2
+    );
+    $postEmbed = $yumpu->postEmbed($params);
+    if (check($postEmbed[state], 'postEmbed')) {
+        $embedId = $postEmbed[embed][id];
+        whenEmbedBuilt($embedId, $documentIdUrl);
+    }
 }
 
 function whenDocumentHotspotBuilt($documentHotspotId, $documentIdUrl)
@@ -289,6 +302,157 @@ function whenSectionBuilt($sectionId, $collectionId, $documentIdUrl)
     check($postSectionDocument[state], 'postSectionDocument');
 }
 
+function whenEmbedBuilt($embedId, $documentIdUrl)
+{
+    global $yumpu, $testInput, $testInputPut;
+
+    // Test for the getEmbed function
+    $params = array(
+        'id' => $embedId
+    );
+    $getEmbed = $yumpu->getEmbed($params);
+    check($getEmbed[state], 'getEmbed');
+
+    // Test for the getEmbeds function
+    $params = array(
+        'limit' => 1
+    );
+    $getEmbeds = $yumpu->getEmbeds($params);
+    check($getEmbeds[state], 'getEmbeds');
+
+    // Test for the putEmbed function
+    $params = array(
+        'id' => $embedId,
+        'document_id' => $documentIdUrl,
+        'type' => 2,
+        'background_shape' => 'square'
+    );
+    $putEmbed = $yumpu->putEmbed($params);
+    check($putEmbed[state], 'putEmbed');
+}
+
+// Test for the postMember function
+$params = array(
+    'username' => $testInput,
+    'password' => '9609ff2e7ba4d577161ab075e406b97f'
+);
+$postMember = $yumpu->postMember($params);
+if (check($postMember[state], 'postMember')) {
+    $memberId = $postMember[member][id];
+    whenMemberBuilt($memberId);
+}
+
+function whenMemberBuilt($memberId)
+{
+    global $yumpu, $testInputPut;
+
+    // Test for the getMembers fucntion
+    $params = array(
+        'limit' => 10,
+        'offset' => 0
+    );
+    $getMembers = $yumpu->getMembers($params);
+    check($getMembers[state], 'getMembers');
+
+    // Test for the getMember function
+    $params = array(
+        'id' => $memberId
+    );
+    $getMember = $yumpu->getMember($params);
+    check($getMember[state], 'getMember');
+
+    // Test for the putMember function
+    $params = array(
+        'id' => $memberId,
+        'username' => $testInputPut,
+        'password' => '9609ff2e7ba4d577161ab075e406b97f'
+    );
+    $putMember = $yumpu->putMember($params);
+    check($putMember[state], 'putMember');
+}
+
+// Test for the postAccessTag function
+$params = array(
+    'name' => $testInput,
+    'description' => $testInput
+);
+$postAccessTag = $yumpu->postAccessTag($params);
+if (check($postAccessTag[state], 'postAccessTag')) {
+    $accessTagId = $postAccessTag[access_tag][id];
+    whenAccessTagBuilt($accessTagId);
+}
+
+function whenAccessTagBuilt($accessTagId)
+{
+    global $yumpu, $testInputPut;
+
+    // Test for the getAccessTags function
+    $params = array(
+        'limit' => 10,
+        'offset' => 0
+    );
+    $getAccessTags = $yumpu->getAccessTags($params);
+    check($getAccessTags[state], 'getAccessTags');
+
+    // Test for the getAccessTag function
+    $params = array(
+        'id' => $accessTagId,
+    );
+    $getAccessTag = $yumpu->getAccessTag($params);
+    check($getAccessTag[state], 'getAccessTag');
+
+    // Test for the putAccessTag function
+    $params = array(
+        'id' => $accessTagId,
+        'name' => $testInputPut
+    );
+    $putAccessTag = $yumpu->putAccessTag($params);
+    check($putAccessTag[state], 'putAccessTag');
+}
+
+// Test for the postSubscription function
+$params = array(
+    'itc_product_id' => $testInput,
+    'name' => $testInput,
+    'duration' => 365
+);
+$postSubscription = $yumpu->postSubscription($params);
+if(check($postSubscription[state], 'postSubscription')){
+    $subscriptionId = $postSubscription[subscription][id];
+    whenSubscriptionBuilt($subscriptionId);
+}
+
+function whenSubscriptionBuilt($subscriptionId) {
+    global $yumpu, $testInputPut;
+
+    // Test for the getSubscriptions function
+    $params = array(
+        'limit' => 10,
+        'offset' => 0
+    );
+    $getSubscriptions = $yumpu->getSubscriptions($params);
+    check($getSubscriptions[state], 'getSubscriptions');
+
+    // Test for the getSubscription function
+    $params = array(
+        'id' => $subscriptionId
+    );
+    $getSubscription = $yumpu->getSubscription($params);
+    check($getSubscription[state], 'getSubscription');
+
+    // Test for the putSubscription function
+    $params = array(
+        'id' => $subscriptionId,
+        'itc_product_id' => $testInputPut,
+        'name' => $testInputPut,
+        'duration' => 7
+    );
+    $putSubscription = $yumpu->putSubscription($params);
+    check($putSubscription[state], 'putSubscription');
+}
+
+
+
 function check($state, $name)
 {
     global $successCount, $errorCount;
@@ -298,7 +462,7 @@ function check($state, $name)
         return true;
     } else {
         $errorCount++;
-        echo 'error - ' . $name . ' ----- ' . $errorCount . ' error tests';
+        echo 'error - ' . $name . ' ----- ' . $errorCount . ' error tests' . '<br/>';
         return false;
     }
 }
