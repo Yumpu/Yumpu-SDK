@@ -13,7 +13,7 @@ $testInputPut = $testInput . 'put';
 $successCount = 0;
 $errorCount = 0;
 
-echo "<pre>";
+echo "<h1 style='font-family: Arial'>Tests for the yumpu php sdk:</h1><ul>";
 
 // Test for the getCountries function
 $getCountries = $yumpu->getCountries();
@@ -64,14 +64,12 @@ if (check($postDocumentFile[state], 'postDocumentFile')) {
     documentProgressFile($documentProgressIdFile);
 }
 
-/**
- *
- */
+$cnt = 0;
 function documentProgressUrl($documentProgressIdUrl)
 {
-    global $yumpu;
+    global $yumpu, $cnt;
 //    print_r($documentProgressIdUrl);
-    $cnt = 0;
+
     $progressId = $documentProgressIdUrl;
     $getDocumentProgress = $yumpu->getDocumentProgress($progressId);
     if ($getDocumentProgress[document][state] == rendering_in_progress) {
@@ -511,14 +509,16 @@ function check($state, $name)
     global $successCount, $errorCount;
     if ($state == 'success') {
         $successCount++;
-        print_r($state . ' - ' . $name . ' ----- ' . $successCount . ' successful tests' . '<br/>');
-        if ($successCount == 51) {
-            echo "</pre><p color='green'>" . $successCount . " successful tests</p>";
-        }
+        print_r("<li style='font-family: Arial'><span style='color:green'>" . $state . "</span> - " . $name . " ----- " . $successCount . " successful tests" . "</li>");
         return true;
     } else {
         $errorCount++;
-        echo 'error - ' . $name . ' ----- ' . $errorCount . ' error tests' . '<br/>';
+        print_r("<li style='font-family: Arial'><span style='color:red'>" . $state . "</span> - " . $name . " ----- " . $errorCount . " error tests" . "</li>");
         return false;
     }
+}
+
+echo "</ul>";
+if($successCount == 51){
+    echo "<p style='font-weight: bold; font-family: Arial'>" . $successCount . " tests done - everything works</p>";
 }
