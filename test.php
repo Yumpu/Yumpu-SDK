@@ -6,7 +6,7 @@ require_once('yumpu.php');
 // make an instance of the Yumpu sdk class;
 $yumpu = new Yumpu();
 
-$testInput = 'inputfortestxy';
+$testInput = 'inputfortest';
 $testInputPut = $testInput . 'put';
 
 $successCount = 0;
@@ -104,12 +104,13 @@ function documentProgressFile($documentProgressIdFile)
 
     } else {
         check($getDocumentProgress[state], 'getDocumentProgressFile');
-        search();
+        $documentIdFile = $getDocumentProgress[document][0][id];
+        search($documentIdFile);
     }
 }
 
 $cntSearch = 0;
-function search()
+function search($documentIdFile)
 {
     global $cntSearch, $yumpu;
     $params = array(
@@ -123,9 +124,14 @@ function search()
             check('failed', 'search');
         }
         sleep(2);
-        search();
+        search($documentIdFile);
     } else {
         check($search[state], 'search');
+
+        // Test for the deleteDocument function
+        $id = $documentIdFile;
+        $deleteDocument = $yumpu->deleteDocument($id);
+        check($deleteDocument[state], 'deleteDocumentFile');
     }
 }
 
@@ -234,7 +240,10 @@ function whenDocumentHotspotBuilt($documentHotspotId, $documentIdUrl)
     $putDocumentHotspot = $yumpu->putDocumentHotspot($params);
     check($putDocumentHotspot[state], 'putDocumentHotspot');
 
-
+    // Test for the deleteDocumentHotspot function
+    $id = $documentHotspotId;
+    $deleteDocumentHotspot = $yumpu->deleteDocumentHotspot($id);
+    check($deleteDocumentHotspot[state], 'deleteDocumentHotspot');
 }
 
 function whenCollectionBuilt($collectionId, $documentIdUrl)
@@ -275,18 +284,18 @@ function whenCollectionBuilt($collectionId, $documentIdUrl)
 function whenSectionBuilt($sectionId, $collectionId, $documentIdUrl)
 {
     global $yumpu, $testInputPut;
-    $id = $collectionId . '_' . $sectionId;
+    $idCollectionSection = $collectionId . '_' . $sectionId;
 
     // Test for the getSection function
     $params = array(
-        'id' => $id
+        'id' => $idCollectionSection
     );
     $getSection = $yumpu->getSection($params);
     check($getSection[state], 'getSection');
 
     // Test for the putSeciton function
     $params = array(
-        'id' => $id,
+        'id' => $idCollectionSection,
         'name' => $testInputPut,
         'description' => $testInputPut
     );
@@ -295,11 +304,30 @@ function whenSectionBuilt($sectionId, $collectionId, $documentIdUrl)
 
     // Test for the postSectionDocument function
     $data = array(
-        'id' => $id,
+        'id' => $idCollectionSection,
         'documents' => $documentIdUrl
     );
     $postSectionDocument = $yumpu->postSectionDocument($data);
     check($postSectionDocument[state], 'postSectionDocument');
+
+    // Test for the deleteSectionDocument function
+    $data = array(
+        'id' => $idCollectionSection,
+        'documents' => $documentIdUrl
+    );
+    $deleteSectionDocument = $yumpu->deleteSectionDocument($data);
+    check($deleteSectionDocument[state], 'deleteSectionDocument');
+
+    // Test for the deleteSection function
+    $id = $idCollectionSection;
+    $deleteSection = $yumpu->deleteSection($id);
+    check($deleteSection[state], 'deleteSection');
+
+    // Test for the deleteCollection function
+    $id = $collectionId;
+    $deleteCollection = $yumpu->deleteCollection($id);
+    check($deleteCollection[state], 'deleteCollection');
+
 }
 
 function whenEmbedBuilt($embedId, $documentIdUrl)
@@ -329,6 +357,16 @@ function whenEmbedBuilt($embedId, $documentIdUrl)
     );
     $putEmbed = $yumpu->putEmbed($params);
     check($putEmbed[state], 'putEmbed');
+
+    // Test for the deleteEmbed function
+    $id = $embedId;
+    $deleteEmbed = $yumpu->deleteEmbed($id);
+    check($deleteEmbed[state], 'deleteEmbed');
+
+    // Test for the deleteDocument function
+    $id = $documentIdUrl;
+    $deleteDocument = $yumpu->deleteDocument($id);
+    check($deleteDocument[state], 'deleteDocumentUrl');
 }
 
 // Test for the postMember function
@@ -369,6 +407,11 @@ function whenMemberBuilt($memberId)
     );
     $putMember = $yumpu->putMember($params);
     check($putMember[state], 'putMember');
+
+    // Test for the deleteMember function
+    $id = $memberId;
+    $deleteMember = $yumpu->deleteMember($id);
+    check($deleteMember[state], 'deleteMember');
 }
 
 // Test for the postAccessTag function
@@ -408,6 +451,11 @@ function whenAccessTagBuilt($accessTagId)
     );
     $putAccessTag = $yumpu->putAccessTag($params);
     check($putAccessTag[state], 'putAccessTag');
+
+    // Test for the deleteAccessTag function
+    $id = $accessTagId;
+    $deleteAccessTag = $yumpu->deleteAccessTag($id);
+    check($deleteAccessTag[state], 'deleteAccessTag');
 }
 
 // Test for the postSubscription function
@@ -417,12 +465,13 @@ $params = array(
     'duration' => 365
 );
 $postSubscription = $yumpu->postSubscription($params);
-if(check($postSubscription[state], 'postSubscription')){
+if (check($postSubscription[state], 'postSubscription')) {
     $subscriptionId = $postSubscription[subscription][id];
     whenSubscriptionBuilt($subscriptionId);
 }
 
-function whenSubscriptionBuilt($subscriptionId) {
+function whenSubscriptionBuilt($subscriptionId)
+{
     global $yumpu, $testInputPut;
 
     // Test for the getSubscriptions function
@@ -449,9 +498,12 @@ function whenSubscriptionBuilt($subscriptionId) {
     );
     $putSubscription = $yumpu->putSubscription($params);
     check($putSubscription[state], 'putSubscription');
+
+    // Test for the deleteSubscription function
+    $id = $subscriptionId;
+    $deleteSubscription = $yumpu->deleteSubscription($id);
+    check($deleteSubscription[state], 'deleteSubscription');
 }
-
-
 
 function check($state, $name)
 {
@@ -459,6 +511,9 @@ function check($state, $name)
     if ($state == 'success') {
         $successCount++;
         print_r($state . ' - ' . $name . ' ----- ' . $successCount . ' successful tests' . '<br/>');
+        if ($successCount == 51) {
+            echo "</pre><p color='green'>" . $successCount . " successful tests</p>";
+        }
         return true;
     } else {
         $errorCount++;
