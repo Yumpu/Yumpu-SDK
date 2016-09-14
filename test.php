@@ -6,6 +6,7 @@ require_once('yumpu.php');
 // make an instance of the Yumpu sdk class;
 $yumpu = new Yumpu();
 
+// define the input (only small characters, no symbols, no blank spaces, min 5 characters)
 $testInput = 'inputfortest';
 $testInputPut = $testInput . 'put';
 
