@@ -2,9 +2,15 @@
 
 // include yumpu sdk
 require_once('yumpu.php');
+require_once('config.php');
 
 // make an instance of the Yumpu sdk class;
 $yumpu = new Yumpu();
+
+if ($config[token] == 'yourToken') {
+    print_r("<p style='font-family: Arial;font-weight: bold'>You have forgotten to set your token!</p>");
+    die();
+}
 
 // define the input (only small characters, no symbols, no blank spaces, min 5 characters)
 $testInput = 'inputfortest';
@@ -72,7 +78,7 @@ function documentProgressUrl($documentProgressIdUrl)
 
     $progressId = $documentProgressIdUrl;
     $getDocumentProgress = $yumpu->getDocumentProgress($progressId);
-    if ($getDocumentProgress[document][state] == rendering_in_progress) {
+    if ($getDocumentProgress[document][state] == 'rendering_in_progress') {
         $cnt = $cnt + 1;
         if ($cnt >= 10) {
             check('failed', 'getDocumentProgressUrl');
@@ -93,7 +99,7 @@ function documentProgressFile($documentProgressIdFile)
     $cnt = 0;
     $progressId = $documentProgressIdFile;
     $getDocumentProgress = $yumpu->getDocumentProgress($progressId);
-    if ($getDocumentProgress[document][state] == rendering_in_progress) {
+    if ($getDocumentProgress[document][state] == 'rendering_in_progress') {
         $cnt = $cnt + 1;
         if ($cnt >= 10) {
             check('failed', 'getDocumentProgressFile');
@@ -519,6 +525,6 @@ function check($state, $name)
 }
 
 echo "</ul>";
-if($successCount == 51){
+if ($successCount == 51) {
     echo "<p style='font-weight: bold; font-family: Arial'>" . $successCount . " tests done - everything works</p>";
 }
