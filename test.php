@@ -23,6 +23,7 @@ echo "<h1 style='font-family: Arial'>Tests for the yumpu php sdk:</h1><ul>";
 
 // Test for the getCountries function
 $getCountries = $yumpu->getCountries();
+echo $getCountries;
 if (check($getCountries[state], 'getCountries')) ;
 
 // Test for the getDocumentLanguages function

@@ -13,7 +13,7 @@
  */
 
 $config = array(
-    'token' => 'yourToken',
+    'token' => getenv('token'), // set your token
     'returnFormat' => 'array',
     'endpointDomain' => 'https://api.yumpu.com/2.0/',
     'endpointSearchDomain' => 'https://search.yumpu.com/2.0/',
