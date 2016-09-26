@@ -1,6 +1,8 @@
 Yumpu-SDK
 =========
 
+[![Build Status](https://travis-ci.org/Yumpu/Yumpu-SDK.svg?branch=master)](https://travis-ci.org/Yumpu/Yumpu-SDK)
+
 With Yumpu.com API you can create effective tools to publish your pdf documents on your website, tablet or mobile application. Find out how to get started, publish your first pdf as flip book on the web or use the search api to display content.
 
 

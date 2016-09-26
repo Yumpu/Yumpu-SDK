@@ -521,6 +521,8 @@ function check($state, $name)
     } else {
         $errorCount++;
         print_r("<li style='font-family: Arial'><span style='color:red'>" . $state . "</span> - " . $name . " ----- " . $errorCount . " error tests" . "</li>");
+        $error = 'A test went wrong ' . $name;
+        throw new Exception($error);
         return false;
     }
 }
