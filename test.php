@@ -521,8 +521,6 @@ function check($state, $name)
     } else {
         $errorCount++;
         print_r("<li style='font-family: Arial'><span style='color:red'>" . $state . "</span> - " . $name . " ----- " . $errorCount . " error tests" . "</li>");
-        $error = 'A test went wrong ' . $name;
-        throw new Exception($error);
         return false;
     }
 }
@@ -530,4 +528,7 @@ function check($state, $name)
 echo "</ul>";
 if ($successCount == 51) {
     echo "<p style='font-weight: bold; font-family: Arial'>" . $successCount . " tests done - everything works</p>";
+} else {
+    $error = 'A test went wrong ' . $name;
+    throw new Exception($error);
 }
