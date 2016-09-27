@@ -7,7 +7,7 @@ require_once('config.php');
 // make an instance of the Yumpu sdk class;
 $yumpu = new Yumpu();
 
-if ($config[token] == 'yourToken') {
+if ($config[token] == null) {
     print_r("<p style='font-family: Arial;font-weight: bold'>You have forgotten to set your token!</p>");
     die();
 }
